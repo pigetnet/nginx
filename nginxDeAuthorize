@@ -1,20 +1,22 @@
 #!/bin/bash
-description "Adding root permission to the web server"
+description "Remove root permission to the web server"
 
 if [ $# -eq 1 ];then
 	command=$1
-	if [ -f $command ];then
-	removeLine "www-data ALL=NOPASSWD: $command" >> /etc/sudoers.d/piget
-	messagebox "Permissions succesfully added"
+	removeLine "/etc/sudoers.d/piget" "www-data ALL=NOPASSWD: $command" 
+	sed -i '/^$/d' "/etc/sudoers.d/piget"
+	echo "/etc/sudoers.d/piget"
 	console
 	cat /etc/sudoers.d/piget
 	console
-	else
-	errorBox "$command doesn't exists"
-	colecho "You have to put the complete path for the command to works" $OK
-	fi
 else
 	errorBox "Wrong arguments"
-	usage "nginxAuthorize command"
-	example "nginxAuthorize /sbin/reboot"
+	usage "nginxDeAuthorize command"
+	example "nginxDeAuthorize /sbin/reboot"
+	linebreak
+	echo "/etc/sudoers.d/piget"
+	echo "List of authorized commands"
+	console
+	cat /etc/sudoers.d/piget
+	console
 fi
