@@ -1,0 +1,24 @@
+#!/bin/bash
+description "Install web server nginx"
+installer php5-xdebug
+
+messagebox "Searching for xdebug.so"
+xdebug=$(find / -name xdebug.so)
+colecho "Founded it at $xdebug" $OK
+messagebox "Generating /etc/php5/fpm/conf.d/20-xdebug.ini"
+cat <<EOF > /etc/php5/fpm/conf.d/20-xdebug.ini &&
+zend_extension = $xdebug
+xdebug.profiler_output_dir=/tmp
+xdebug.profiler_output_name=cachegrind.out.%p
+xdebug.profiler_enable_trigger=1
+xdebug.profiler_enable=0
+xdebug.remote_enable=true
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9001
+xdebug.remote_handler=dbgp
+xdebug.remote_autostart=0
+EOF
+console
+cat /etc/php5/fpm/conf.d/20-xdebug.ini
+console
+restarter php5-fpm
