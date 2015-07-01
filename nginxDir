@@ -1,0 +1,15 @@
+#!/bin/bash
+if [ $# -eq 1 ];then
+	www=$1
+	if [ -d $www ];then
+		replaceLine "/etc/nginx/sites-enabled/default" "root" "	root $www;" "listen 80;"
+		cat "/etc/nginx/sites-enabled/default"
+		restarter nginx
+	else
+		errorBox "$www doesn't exists"
+	fi
+else
+	errorBox "Wrong arguments"
+	usage "nginxDir www"
+	example "nginxDir /var/www"
+fi
