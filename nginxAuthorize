@@ -23,5 +23,6 @@ else
 	errorBox "Wrong arguments"
 	usage "nginxAuthorize command"
 	example "nginxAuthorize /sbin/reboot"
+	cat /etc/sudoers.d/piget
 fi
 

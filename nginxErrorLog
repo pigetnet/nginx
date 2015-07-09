@@ -1,0 +1,5 @@
+#!/bin/bash
+description "Web Server Error Log"
+messagebox "Press CTRL-C to exit"
+tail -f /var/log/nginx/error.log
+
