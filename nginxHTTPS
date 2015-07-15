@@ -2,7 +2,9 @@
 #https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-nginx-for-ubuntu-14-04
 description "Https only for nginx"
 mkdir /etc/nginx/ssl
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+chmod 400 /etc/nginx/ssl/nginx.key
+chmod 400 /etc/nginx/ssl/nginx.crt
 replaceLineIfExists "/etc/nginx/sites-enabled/default" "listen 80;" "	listen 443 ssl;"
 addAfterLineIfNotExists "/etc/nginx/sites-enabled/default" "server_name" "ssl_certificate_key /etc/nginx/ssl/nginx.key;"
 addAfterLineIfNotExists "/etc/nginx/sites-enabled/default" "server_name" "ssl_certificate /etc/nginx/ssl/nginx.crt;"
