@@ -1,0 +1,6 @@
+#!/bin/bash
+/show/description "Install SQLite --> nginx"
+/system/install sqlite3
+/system/install php5-sqlite
+/system/restart nginx
+/system/restart php5-fpm

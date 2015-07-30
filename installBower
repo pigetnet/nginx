@@ -1,0 +1,8 @@
+#!/bin/bash
+/show/description "Installing Bower (manage javascript repositories)"
+
+/show/listecho "Use adafruit apt repositories for nodejs" $OK
+curl -sLS https://apt.adafruit.com/add | sudo bash
+/system/install node
+/show/listecho "Install bower globally" $OK
+npm install -g bower

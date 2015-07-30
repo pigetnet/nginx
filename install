@@ -1,10 +1,9 @@
 #!/bin/bash
-description "Install web server nginx"
-installer nginx
-messagebox "Install php"
-installer php5-fpm
+/show/description "Install web server nginx"
+/system/install nginx
+/system/install php5-fpm
 
-messagebox "Generating /etc/nginx/sites-enabled/default"
+/show/listecho "Generate /etc/nginx/sites-enabled/default" $OK
 cat <<\EOF > /etc/nginx/sites-enabled/default &&
 server {
         listen   80;
@@ -33,7 +32,5 @@ server {
         }
 }
 EOF
-console
-cat /etc/nginx/sites-enabled/default
-console
-restarter nginx
+/show/file /etc/nginx/sites-enabled/default
+/system/restart nginx

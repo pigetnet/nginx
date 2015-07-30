@@ -1,5 +1,0 @@
-#!/bin/bash
-installer sqlite3
-installer php5-sqlite
-restarter nginx
-restarter php5-fpm

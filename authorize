@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ $# -eq 1 ];then
+	cd / # Go to root folder to avoid relative link
+	command=$1
+	/show/description "Authorize $command -> web server" $WARN
+	if [ -f $command ];then
+		touch /etc/sudoers.d/piget
+		. /string/getLine "/etc/sudoers.d/piget" $command
+		if [[ $NewString == -1 ]];then
+			echo "www-data ALL=NOPASSWD: $command" >> /etc/sudoers.d/piget
+			/show/listecho "Permissions succesfully added [OK]" $OK
+		else
+			/show/listecho "Permissions already added [SKIPPED]" $INFO
+		fi
+		/show/file "/etc/sudoers.d/piget"
+	else
+		/show/listecho "Permissions not added [FAILED]" $ERR
+		/show/listecho "$command doesn't exists" $ERR
+		/show/listecho "You have to put the complete path for the command to works" $WARN
+		
+	fi
+else
+	/show/errorBox "Wrong arguments"
+	/show/usage "/do/nginx/authorize command"
+	/show/example "/do/nginx/authorize /sbin/reboot"
+	if [ -e "/etc/sudoers.d/piget" ];then
+		/show/file /etc/sudoers.d/piget
+	fi
+fi
+
