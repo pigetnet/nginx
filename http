@@ -1,7 +1,7 @@
 #!/bin/bash
 #https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-nginx-for-ubuntu-14-04
 /show/description "Https only for nginx"
-/string/replaceLineIfExists "/etc/nginx/sites-enabled/default" "listen 443 ssl;" "	listen 80;"
+/string/replaceLineIfExists "/etc/nginx/sites-enabled/default" "listen 443 ssl;" "listen   80;"
 /string/removeLine "/etc/nginx/sites-enabled/default" "ssl_certificate_key /etc/nginx/ssl/nginx.key;"
 /string/removeLine "/etc/nginx/sites-enabled/default" "ssl_certificate /etc/nginx/ssl/nginx.crt;"
 /system/restart nginx
