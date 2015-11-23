@@ -1,0 +1,6 @@
+#!/bin/bash
+webshell=$(getent passwd www-data | cut -d: -f7)
+if [[ $webshell != "/bin/bash" ]];then
+    chsh -s /bin/bash www-data
+fi
+

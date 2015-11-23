@@ -1,6 +1,10 @@
 #!/bin/bash
 
+
+
 if [ $# -eq 1 ];then
+	/do/nginx/enableShell
+
 	cd / # Go to root folder to avoid relative link
 	command=$1
 	/show/description "Authorize $command -> web server" $WARN
