@@ -1,0 +1,13 @@
+#!/bin/bash
+# [FR] https://memo-linux.com/configurer-le-serveur-web-nginx-en-https-avec-letsencrypt-sous-debian-jessie/
+/show/description "(EXPERIMENTAL) - HTTPS only for nginx using let's encrypt certificate"
+/system/makedir /etc/nginx/ssl
+hostname=$1
+/pi/install letsencrypt
+/do/letsencrypt/bin/letsencrypt-auto certonly -d $1 --rsa-key-size 4096
+chmod 400 /etc/nginx/ssl/nginx.key
+chmod 400 /etc/nginx/ssl/nginx.crt
+/string/replaceLineIfExists "/etc/nginx/sites-enabled/default" "listen   80;" "	listen 443 ssl;"
+/string/addAfterLineIfNotExists "/etc/nginx/sites-enabled/default" "server_name" "ssl_certificate_key /etc/nginx/ssl/nginx.key;"
+/string/addAfterLineIfNotExists "/etc/nginx/sites-enabled/default" "server_name" "ssl_certificate /etc/nginx/ssl/nginx.crt;"
+/system/restart nginx
