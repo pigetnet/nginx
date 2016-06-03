@@ -9,7 +9,7 @@ server {
         listen   80;
 
 
-        root /var/www;
+        root /user/web;
         index index.php index.html index.htm;
 
         #See http://nginx.org/en/docs/http/server_names.html
@@ -38,3 +38,5 @@ if [ ! -e /var/www/index.html ];then
 	echo "Copy web files into /var/www/" > /var/www/index.html
 	echo "<br>You can change folder by typing /do/nginx/dir newdir" >> /var/www/index.html
 fi
+mkdir /user/web
+

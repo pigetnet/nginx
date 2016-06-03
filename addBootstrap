@@ -1,0 +1,14 @@
+if [ ! -f /tmp/bootstrap.zip ];then
+	wget https://github.com/twbs/bootstrap/releases/download/v3.3.6/bootstrap-3.3.6-dist.zip -O /tmp/bootstrap.zip
+fi
+
+unzip /tmp/bootstrap.zip -d /tmp/bootstrap
+ver=$(ls /tmp/bootstrap)
+
+if [ -d /user/web/bootstrap ];then
+	rm -rf /user/web/bootstrap
+fi
+
+mv /tmp/bootstrap/$ver/ /user/web/bootstrap
+
+rm -rf /tmp/bootstrap
